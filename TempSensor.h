@@ -8,8 +8,8 @@
 class TempSensor {
 
 public:
+    static int init();
     static int readSensorData(float &temp, float &humidity);
-
 };
 
 

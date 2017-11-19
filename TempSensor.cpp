@@ -11,6 +11,10 @@
 #define DHT_PULSES      41
 #define DHT_PIN         7       /* GPIO-22 */
 
+int TempSensor::init() {
+    wiringPiSetup();
+}
+
 int TempSensor::readSensorData(float &temp, float &humidity) {
     uint8_t laststate       = HIGH;
     uint8_t counter         = 0;
@@ -82,7 +86,7 @@ int TempSensor::readSensorData(float &temp, float &humidity) {
         {
             humidity = data[0];
         }
-        float temp = (float)(((data[2] & 0x7F) * 256) + data[3]) / 10.0f;
+        temp = (float)(((data[2] & 0x7F) * 256) + data[3]) / 10.0f;
         if ( temp > 125 )
         {
             temp = data[2];    // for DHT11
@@ -91,10 +95,10 @@ int TempSensor::readSensorData(float &temp, float &humidity) {
         {
             temp = -temp;
         }
-        //printf( "Humidity = %.1f %% Temperature = %.1f *C\n", h, c );
+        printf( "Humidity = %.1f %% Temperature = %.1f *C\n", humidity, temp );
 
-        return 0;
-    } else {
         return 1;
+    } else {
+        return 0;
     }
 }

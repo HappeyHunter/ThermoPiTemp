@@ -20,7 +20,7 @@ std::string buildBody(float temp, float humidity) {
 
 int putCurrentMeasures(float temp, float humidity) {
 
-    std::string url = "http://thermopi:8080/ThermoPi/CurrentReadings";
+    std::string url = "http://thermopi:8080/ThermoPi/CurrentTemperature";
     // temp for testing
     // url = "http://192.168.1.13:8080/thermopi-1.0-SNAPSHOT/rest/ThermoPi/CurrentTemperature";
 
@@ -55,6 +55,8 @@ int main() {
     float humidity;
     int success;
     bool stopRequested = false;
+
+    TempSensor::init();
 
     while(!stopRequested) {
         temp = 0;
